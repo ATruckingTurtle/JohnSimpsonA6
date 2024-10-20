@@ -32,6 +32,9 @@
             directoryOpenButton = new Button();
             folderBrowserDialog1 = new FolderBrowserDialog();
             DirectoryDisplay = new TextBox();
+            JsonSaveButton = new Button();
+            CsvSaveButton = new Button();
+            listedBookBox = new ListBox();
             SuspendLayout();
             // 
             // label1
@@ -60,11 +63,42 @@
             DirectoryDisplay.Size = new Size(406, 23);
             DirectoryDisplay.TabIndex = 2;
             // 
+            // JsonSaveButton
+            // 
+            JsonSaveButton.Location = new Point(112, 237);
+            JsonSaveButton.Name = "JsonSaveButton";
+            JsonSaveButton.Size = new Size(87, 66);
+            JsonSaveButton.TabIndex = 3;
+            JsonSaveButton.Text = "Save \r\nas\r\nJSON";
+            JsonSaveButton.UseVisualStyleBackColor = true;
+            JsonSaveButton.Click += JsonSaveButton_Click;
+            // 
+            // CsvSaveButton
+            // 
+            CsvSaveButton.Location = new Point(226, 237);
+            CsvSaveButton.Name = "CsvSaveButton";
+            CsvSaveButton.Size = new Size(87, 66);
+            CsvSaveButton.TabIndex = 4;
+            CsvSaveButton.Text = "Save \r\nas\r\nCSV";
+            CsvSaveButton.UseVisualStyleBackColor = true;
+            // 
+            // listedBookBox
+            // 
+            listedBookBox.FormattingEnabled = true;
+            listedBookBox.ItemHeight = 15;
+            listedBookBox.Location = new Point(411, 145);
+            listedBookBox.Name = "listedBookBox";
+            listedBookBox.Size = new Size(354, 259);
+            listedBookBox.TabIndex = 5;
+            // 
             // FileConversionForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(listedBookBox);
+            Controls.Add(CsvSaveButton);
+            Controls.Add(JsonSaveButton);
             Controls.Add(DirectoryDisplay);
             Controls.Add(directoryOpenButton);
             Controls.Add(label1);
@@ -81,5 +115,8 @@
         private Button directoryOpenButton;
         private FolderBrowserDialog folderBrowserDialog1;
         private TextBox DirectoryDisplay;
+        private Button JsonSaveButton;
+        private Button CsvSaveButton;
+        private ListBox listedBookBox;
     }
 }
