@@ -39,25 +39,25 @@
             label1.AutoSize = true;
             label1.Location = new Point(52, 49);
             label1.Name = "label1";
-            label1.Size = new Size(57, 15);
+            label1.Size = new Size(52, 15);
             label1.TabIndex = 0;
-            label1.Text = "Pick a file";
+            label1.Text = "File Path";
             // 
             // directoryOpenButton
             // 
-            directoryOpenButton.Location = new Point(340, 67);
+            directoryOpenButton.Location = new Point(464, 67);
             directoryOpenButton.Name = "directoryOpenButton";
-            directoryOpenButton.Size = new Size(30, 23);
+            directoryOpenButton.Size = new Size(86, 23);
             directoryOpenButton.TabIndex = 1;
-            directoryOpenButton.Text = "....";
+            directoryOpenButton.Text = "Browse Files";
             directoryOpenButton.UseVisualStyleBackColor = true;
-            directoryOpenButton.Click += directoryOpenButton_Click;
+            directoryOpenButton.Click += DirectoryOpenButton_Click;
             // 
             // DirectoryDisplay
             // 
             DirectoryDisplay.Location = new Point(52, 67);
             DirectoryDisplay.Name = "DirectoryDisplay";
-            DirectoryDisplay.Size = new Size(282, 23);
+            DirectoryDisplay.Size = new Size(406, 23);
             DirectoryDisplay.TabIndex = 2;
             // 
             // FileConversionForm

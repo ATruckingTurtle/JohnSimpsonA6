@@ -14,10 +14,10 @@ public partial class FileConversionForm : Form
         set => base.Text = value;
     }
 
-    private void directoryOpenButton_Click(object sender, EventArgs e)
+    private void DirectoryOpenButton_Click(object sender, EventArgs e)
     {
-        OpenFileDialog folder = new OpenFileDialog();
-        DialogResult result = folder.ShowDialog();
+        var folder = new OpenFileDialog();
+        var result = folder.ShowDialog();
         if (result == DialogResult.OK)
         {
             DirectoryDisplay.Text = folder.FileName;
