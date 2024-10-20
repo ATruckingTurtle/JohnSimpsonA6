@@ -1,8 +1,8 @@
 namespace JohnSimpsonA6;
 
-public partial class Form1 : Form
+public partial class FileConversionForm : Form
 {
-    public Form1()
+    public FileConversionForm()
     {
         InitializeComponent();
         this.Text = @"John Simpson Assignment 6";
@@ -12,5 +12,15 @@ public partial class Form1 : Form
     {
         get => base.Text;
         set => base.Text = value;
+    }
+
+    private void directoryOpenButton_Click(object sender, EventArgs e)
+    {
+        OpenFileDialog folder = new OpenFileDialog();
+        DialogResult result = folder.ShowDialog();
+        if (result == DialogResult.OK)
+        {
+            DirectoryDisplay.Text = folder.FileName;
+        }
     }
 }
