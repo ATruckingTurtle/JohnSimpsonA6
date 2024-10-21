@@ -81,6 +81,7 @@
             CsvSaveButton.TabIndex = 4;
             CsvSaveButton.Text = "Save \r\nas\r\nCSV";
             CsvSaveButton.UseVisualStyleBackColor = true;
+            CsvSaveButton.Click += CsvSaveButton_Click;
             // 
             // listedBookBox
             // 

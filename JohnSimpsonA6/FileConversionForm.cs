@@ -54,6 +54,47 @@ public partial class FileConversionForm : Form
 
     private void JsonSaveButton_Click(object sender, EventArgs e)
     {
+        if (_books == null || _books.Count == 0)
+        {
+            MessageBox.Show(@"Please add usable data before using this." ,@"Data Warning");
+            return;
+        }
+    }
 
+    private void CsvSaveButton_Click(object sender, EventArgs e)
+    {
+        if (_books == null || _books.Count == 0)
+        {
+            MessageBox.Show(@"Please add usable data before using this.",@"Data Warning");
+            return;
+        }
+
+        var saveFileDialog = new SaveFileDialog();
+        var result = saveFileDialog.ShowDialog();
+        if (result == DialogResult.OK)
+        {
+            string filePath = saveFileDialog.FileName;
+            try
+            {
+                SaveBookCsv(filePath);
+                MessageBox.Show(@"File saved", @"Great success");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($@"Issue occured while saving: {ex.Message}", @"err");
+            }
+        }
+    }
+
+    public void SaveBookCsv(string filePath)
+    {
+        var csvFile = new List<string> { "Title,Author,Page,Genre,Year, Price" };
+
+        if (_books != null)
+        {
+            csvFile.AddRange(_books.Select(book => ($"{book.Title},{book.Author},{book.Pages},{book.Genre},{book.Year},{book.Price}")));
+        }
+        File.WriteAllLines(filePath, csvFile);
+       
     }
 }
