@@ -1,3 +1,4 @@
+using System.Text;
 using System.Text.Json;
 
 namespace JohnSimpsonA6;
@@ -37,7 +38,7 @@ public partial class FileConversionForm : Form
 
         foreach (var b in _books)
         {
-            listedBookBox.Items.Add($"{b.Title}");
+            listedBookBox.Items.Add($"{b.Title}, year {b.Year}");
         }
     }
 
@@ -71,18 +72,16 @@ public partial class FileConversionForm : Form
 
         var saveFileDialog = new SaveFileDialog();
         var result = saveFileDialog.ShowDialog();
-        if (result == DialogResult.OK)
+        if (result != DialogResult.OK) return;
+        var filePath = saveFileDialog.FileName;
+        try
         {
-            string filePath = saveFileDialog.FileName;
-            try
-            {
-                SaveBookCsv(filePath);
-                MessageBox.Show(@"File saved", @"Great success");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($@"Issue occured while saving: {ex.Message}", @"err");
-            }
+            SaveBookCsv(filePath);
+            MessageBox.Show(@"File saved", @"Great success");
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($@"Issue occured while saving: {ex.Message}", @"err");
         }
     }
 
@@ -95,6 +94,5 @@ public partial class FileConversionForm : Form
             csvFile.AddRange(_books.Select(book => ($"{book.Title},{book.Author},{book.Pages},{book.Genre},{book.Year},{book.Price}")));
         }
         File.WriteAllLines(filePath, csvFile);
-       
     }
 }
