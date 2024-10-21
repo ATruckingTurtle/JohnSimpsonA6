@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
 
@@ -60,6 +61,27 @@ public partial class FileConversionForm : Form
             MessageBox.Show(@"Please add usable data before using this." ,@"Data Warning");
             return;
         }
+        
+        var saveFileDialog = new SaveFileDialog();
+        var result = saveFileDialog.ShowDialog();
+        if (result != DialogResult.OK) return;
+        try
+        {
+            var filePath = saveFileDialog.FileName;
+            SaveBookJson(filePath);
+            MessageBox.Show(@"File saved", @"Great success");
+        }
+        catch (Exception ea)
+        {
+            MessageBox.Show($@"Error while saving data: {ea.Message}");
+        }
+    }
+
+    private void SaveBookJson(string filePath)
+    {
+        var json = JsonSerializer.Serialize(_books, new JsonSerializerOptions { WriteIndented = true });
+        File.WriteAllText(filePath, json);
+
     }
 
     private void CsvSaveButton_Click(object sender, EventArgs e)
@@ -85,7 +107,7 @@ public partial class FileConversionForm : Form
         }
     }
 
-    public void SaveBookCsv(string filePath)
+    private void SaveBookCsv(string filePath)
     {
         var csvFile = new List<string> { "Title,Author,Page,Genre,Year, Price" };
 
