@@ -1,21 +1,25 @@
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Text.Json;
 
 namespace JohnSimpsonA6;
 
 public partial class FileConversionForm : Form
 {
-    private List<Books>? _books = new List<Books>();
+    private List<Books>? _books = [];
     public FileConversionForm()
     {
         InitializeComponent();
+        listedBookBox.Items.Add($"There are {_books.Count} Books in the list.");
         this.Text = @"John Simpson Assignment 6";
     }
 
     public sealed override string Text
     {
-        set => base.Text = value;
+        set
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                throw new ArgumentException(@"Value cannot be null or whitespace.", nameof(value));
+            base.Text = value;
+        }
         get => base.Text;
     }
 
@@ -37,9 +41,19 @@ public partial class FileConversionForm : Form
     {
         listedBookBox.Items.Clear();
 
-        foreach (var b in _books)
+        if (_books != null)
         {
-            listedBookBox.Items.Add($"{b.Title}, year {b.Year}");
+            listedBookBox.Items.Add($"There are {_books.Count} books in the list.");
+            listedBookBox.Items.Add("");
+
+            foreach (var b in _books!)
+            {
+                listedBookBox.Items.Add($"{b.Title}, Released in {b.Year}");
+            }
+        }
+        else
+        {
+            listedBookBox.Items.Add("Currently no books.");
         }
     }
 
@@ -47,11 +61,9 @@ public partial class FileConversionForm : Form
     {
         var folder = new OpenFileDialog();
         var result = folder.ShowDialog();
-        if (result == DialogResult.OK)
-        {
-            DirectoryDisplay.Text = folder.FileName;
-            LoadBooksFromFile(folder.FileName);
-        }
+        if (result != DialogResult.OK) return;
+        DirectoryDisplay.Text = folder.FileName;
+        LoadBooksFromFile(folder.FileName);
     }
 
     private void JsonSaveButton_Click(object sender, EventArgs e)
@@ -63,6 +75,8 @@ public partial class FileConversionForm : Form
         }
         
         var saveFileDialog = new SaveFileDialog();
+        saveFileDialog.DefaultExt = "json";
+        saveFileDialog.AddExtension = true;
         var result = saveFileDialog.ShowDialog();
         if (result != DialogResult.OK) return;
         try
@@ -81,7 +95,6 @@ public partial class FileConversionForm : Form
     {
         var json = JsonSerializer.Serialize(_books, new JsonSerializerOptions { WriteIndented = true });
         File.WriteAllText(filePath, json);
-
     }
 
     private void CsvSaveButton_Click(object sender, EventArgs e)
@@ -93,7 +106,10 @@ public partial class FileConversionForm : Form
         }
 
         var saveFileDialog = new SaveFileDialog();
+        saveFileDialog.DefaultExt = "csv";
+        saveFileDialog.AddExtension = true;
         var result = saveFileDialog.ShowDialog();
+        
         if (result != DialogResult.OK) return;
         var filePath = saveFileDialog.FileName;
         try

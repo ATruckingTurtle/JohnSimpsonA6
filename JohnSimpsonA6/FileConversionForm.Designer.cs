@@ -35,6 +35,7 @@
             JsonSaveButton = new Button();
             CsvSaveButton = new Button();
             listedBookBox = new ListBox();
+            label2 = new Label();
             SuspendLayout();
             // 
             // label1
@@ -92,11 +93,21 @@
             listedBookBox.Size = new Size(354, 259);
             listedBookBox.TabIndex = 5;
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(411, 127);
+            label2.Name = "label2";
+            label2.Size = new Size(99, 15);
+            label2.TabIndex = 6;
+            label2.Text = "Contents preview";
+            // 
             // FileConversionForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(label2);
             Controls.Add(listedBookBox);
             Controls.Add(CsvSaveButton);
             Controls.Add(JsonSaveButton);
@@ -119,5 +130,6 @@
         private Button JsonSaveButton;
         private Button CsvSaveButton;
         private ListBox listedBookBox;
+        private Label label2;
     }
 }
