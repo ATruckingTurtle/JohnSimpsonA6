@@ -8,7 +8,7 @@ public partial class FileConversionForm : Form
     public FileConversionForm()
     {
         InitializeComponent();
-        listedBookBox.Items.Add($"There are {_books.Count} Books in the list.");
+        if (_books != null) listedBookBox.Items.Add($"There are {_books.Count} Books in the list.");
         this.Text = @"John Simpson Assignment 6";
     }
 
@@ -82,6 +82,10 @@ public partial class FileConversionForm : Form
         try
         {
             var filePath = saveFileDialog.FileName;
+            if (!filePath.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
+            {
+                filePath += ".json";
+            }
             SaveBookJson(filePath);
             MessageBox.Show(@"File saved", @"Great success");
         }
@@ -114,6 +118,10 @@ public partial class FileConversionForm : Form
         var filePath = saveFileDialog.FileName;
         try
         {
+            if (!filePath.EndsWith(".csv", StringComparison.OrdinalIgnoreCase))
+            {
+                filePath += ".csv";
+            }
             SaveBookCsv(filePath);
             MessageBox.Show(@"File saved", @"Great success");
         }
